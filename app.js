@@ -4,9 +4,9 @@ const inquirer = require('inquirer');
 
 
 //plan
-function start(){
+async function start(){
 //prompt questions
-inquirer.prompt([
+const answers = await  inquirer.prompt([
     //Start, Managers details
     {
         type: 'input',
@@ -29,6 +29,16 @@ inquirer.prompt([
         name: 'managers_office_number'
     },
     //Role - list
+    //base questions
+    //name
+    //id
+    //email
+    //role specific question
+
+    //"WHEN" user answers manager, engineer, or intern there should be an alternative question: Engineer - github, intern - school
+    // how do i get it to read the answers? can i do an if statment and then run some functions? 
+
+    // ask choice if the user wants to go again. 
     {
         type: 'list',
         message: "What is the employees role?",
@@ -38,12 +48,6 @@ inquirer.prompt([
 
 
 
-    //base questions
-    //name
-    //id
-    //email
-    //role specific question
-    //"WHEN" user answers manager, engineer, or intern there should be an alternative question: Engineer - github, intern - school
 
     {
         type: 'input',
@@ -60,12 +64,28 @@ inquirer.prompt([
         message: "Employee email?",
         name: 'employee_email'
     },
- 
-
-
-
+    {
+        type: 'input',
+        name: 'engineer_github',
+        message: "What is your GitHub username?",
+        when: (answers) => answers.employee_role === 'Engineer'
+    },
+    {
+        type: 'input',
+        name: 'intern_school',
+        message: "What is your school name?",
+        when: (answers) => answers.employee_role === 'Intern'
+    },
+    {
+        type: 'confirm',
+        name: 'add_new_staff',
+        message: "Would you like to add a new staff member"
+    }
 
 ])
+.then((response)=>{
+    console.log(response);
+})
 }
 
 //run application
