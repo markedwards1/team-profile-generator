@@ -15,7 +15,7 @@ const answers = await  inquirer.prompt([
     },
     {
         type: 'input',
-        message: "Employee id?",
+        message: "Manager id?",
         name: 'managers_id'
     },
     {
@@ -28,27 +28,18 @@ const answers = await  inquirer.prompt([
         message: "Manager's office number?",
         name: 'managers_office_number'
     },
-    //Role - list
-    //base questions
-    //name
-    //id
-    //email
-    //role specific question
 
-    //"WHEN" user answers manager, engineer, or intern there should be an alternative question: Engineer - github, intern - school
-    // how do i get it to read the answers? can i do an if statment and then run some functions? 
 
-    // ask choice if the user wants to go again. 
+// create a function so when the manager wants to add a new employee it only asks these questions
+
     {
         type: 'list',
         message: "What is the employees role?",
         choices: ['Engineer', 'Intern'],
         name: 'employee_role'
     },
-
-
-
-
+    
+    
     {
         type: 'input',
         message: "Employee name?",
@@ -81,11 +72,20 @@ const answers = await  inquirer.prompt([
         name: 'add_new_staff',
         message: "Would you like to add a new staff member"
     }
+    
+]);
 
-])
-.then((response)=>{
-    console.log(response);
-})
+// store answers
+
+// ask choice if the user wants to go again. 
+    if(!answers.add_new_staff) {
+        //generate HTML
+    }else{
+        start();
+    }
+
+console.log(answers);
+
 }
 
 //run application
