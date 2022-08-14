@@ -38,6 +38,17 @@ describe("tests getName() module", () => {
         expect(result).toStrictEqual(email);
     });
 
-    
+    it("tests getrole() returns Employee", () =>{
+
+    //Arrange
+    const getRoleString = "Employee";
+    const testGetRole = new Employee ('mark', '01', 'mark@gmail.com', 'gitHubUser');
+
+    //Act 
+    const result = testGetRole.getRole();
+
+    //Assert
+    expect(result).toStrictEqual(getRoleString);
+});
     
 })
