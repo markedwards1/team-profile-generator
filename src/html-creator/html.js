@@ -1,9 +1,11 @@
+//inports packages
 const fs = require('fs');
 const path = require ('path');
+// creates a directory path
 const cardTemplatePath = path.join(__dirname, 'templates', 'card.html');
 const mainTemplatePath = path.join(__dirname, './templates', 'main.html');
 
-
+//creates new card
 function newCard(staffMember){
 
 // read card.html template
@@ -16,7 +18,7 @@ let changeCards = cardTemplate.replace('{{name}}', staffMember.getName())
 .replace('{{email2}}', staffMember.getEmail())
 
 
-
+//if statments create the special_key and special_value specific to the role type
 if(staffMember.getRole() === "Manager"){
     changeCards = changeCards.replace('{{special_key}}', "Office Number")
     .replace('{{special_value}}', staffMember.getOfficeNumber())
@@ -34,14 +36,14 @@ if(staffMember.getRole() === "Intern"){
     .replace('{{special_value2}}', staffMember.getSchool())
 }
 
-
+//returns cards
 return changeCards;
 }
 
-
+//function to write file
 function newHtml(staff){
   
-  
+    //variable to write html files
     const mainTemplate = fs.readFileSync(mainTemplatePath, 'utf-8');
     // loop through staff and generate a card for each staff member
     const cards = staff.map(newCard).join(" ")
@@ -52,5 +54,5 @@ function newHtml(staff){
 }
 
 
-
+// exports newHtml function
 module.exports = newHtml;

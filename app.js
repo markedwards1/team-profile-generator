@@ -1,33 +1,32 @@
-//Inport inquirer
+//Import inquirer, js files from lib
 const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/manager');
+//imports fs and path packages
 const fs = require('fs');
 const path = require('path');
+//inports newHtml functions
 const newHtml = require('./src/html-creator/html')
-
+//Empty array to collect prompt input objects
 const staff = [];
+//Defines path to create new 'staff.html' file
 const output = path.join(__dirname, 'dist', 'staff.html');
 
-//plan
+//start app function
 async function start(){
-//prompt questions
-//staff variable types
 
-
+//variables for different roles
 const managerRole = "Manager";
 const engineerRole = "Engineer";
 const internRole = "Intern";
 
-
+//Stores answers in variable once propt questions have been answered
 const answers = await  inquirer.prompt([
     
     
-    //Start, Managers details
   
-    
-    // create a function so when the manager wants to add a new employee it only asks these questions
+    // Prompt questions
     {
         type: 'input',
         message: "Employee name?",
@@ -86,8 +85,8 @@ const answers = await  inquirer.prompt([
     
 ]);
 
-// store answers
-//Once we have the staff check for the role
+
+//Checks object by roll and pushes data to empty array
 if(answers.employee_role === managerRole){
     staff.push(new Manager(answers.employee_name, answers.employee_id, answers.employee_email ,answers.managers_office_number))
 }
@@ -97,19 +96,19 @@ if(answers.employee_role === engineerRole){
 if(answers.employee_role === internRole){
     staff.push(new Intern(answers.employee_name, answers.employee_id, answers.employee_email ,answers.intern_school))
 }
-//Create a role based object
-//add to the staff array
+
 console.log(staff);
 
-// ask choice if the user wants to go again. 
+// ask choice if the user wants to add new employee. 
     if(!answers.add_new_staff) {
-        //generate HTML
+        //stores data from newHtml in a variable
        const htmlFile = newHtml(staff);
         
-        //use fs to create a new file
+        //Writes file when user doesnt confirms no.
         fs.writeFileSync(output, htmlFile, 'utf-8')
 
     }
+    //If user confirms yes run prompt questions again
     else{
        await start();
     }

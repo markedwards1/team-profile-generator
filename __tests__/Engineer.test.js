@@ -4,7 +4,7 @@ const Engineer = require("../lib/Engineer");
 describe("Engineer tests", ()=>{
     it("tests if getGitHub() returns github profile name", () => {
         //Arange
-        const gitHub = 'markEdwards1';
+        const gitHub = "markedwards1"
         const testGitHub = new Engineer('mark', '01', 'mark@gmail.com', gitHub);
 
         //act
