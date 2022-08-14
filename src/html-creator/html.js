@@ -13,20 +13,25 @@ let changeCards = cardTemplate.replace('{{name}}', staffMember.getName())
 .replace('{{role}}', staffMember.getRole())
 .replace('{{id}}', staffMember.getId())
 .replace('{{email}}', staffMember.getEmail())
+.replace('{{email2}}', staffMember.getEmail())
 
 
 
 if(staffMember.getRole() === "Manager"){
     changeCards = changeCards.replace('{{special_key}}', "Office Number")
     .replace('{{special_value}}', staffMember.getOfficeNumber())
+    .replace('{{special_value2}}', staffMember.getOfficeNumber())
 }
 if(staffMember.getRole() === "Engineer"){
-    changeCards = changeCards.replace('{{special_key}}', "Github:")
+    changeCards = changeCards.replace('{{special_key}}', "Github")
     .replace('{{special_value}}', staffMember.getGitHub())
+    .replace('{{special_value2}}', staffMember.getGitHub())
+   
 }
 if(staffMember.getRole() === "Intern"){
-    changeCards = changeCards.replace('{{special_key}}', "School:")
+    changeCards = changeCards.replace('{{special_key}}', "School")
     .replace('{{special_value}}', staffMember.getSchool())
+    .replace('{{special_value2}}', staffMember.getSchool())
 }
 
 

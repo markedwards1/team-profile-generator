@@ -1,11 +1,16 @@
 
 
-<article>
 
-    <h2>{{name}} </h2>
-    <h2>{{role}}</h2>
-    <h3>ID: {{id}}</h3>
-    <h3>Email: {{email}}</h3>
-    <h3>{{special_key}}: {{special_value}}</h3>
 
-</article>
+<div class="card-group col-3">
+    <div class="card">
+      
+      <div class="card-body">
+        <h5 class="card-title">{{name}}</h5>
+        <h5 class="card-title">{{role}}</h5>
+        <p class="card-text">ID: {{id}}</p>
+        <p class="card-text">Email: <a href="mailto:{{email}}?subject=free chocolate for bootcamp students">{{email2}}</a></p>
+        <p class="card-text">{{special_key}}: <a href="{{special_value}}">{{special_value2}} </a></p>
+      </div>
+    </div>
+  </div>

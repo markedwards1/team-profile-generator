@@ -31,7 +31,10 @@ const answers = await  inquirer.prompt([
     {
         type: 'input',
         message: "Employee name?",
-        name: 'employee_name'
+        name: 'employee_name',
+        validate: function(name){
+            return /[a-z1-9]/i.test(name);
+        }
     },
     {
         type: 'input',
@@ -41,13 +44,18 @@ const answers = await  inquirer.prompt([
     {
         type: 'input',
         message: "Employee email?",
-        name: 'employee_email'
+        name: 'employee_email',
+        validate: function(email)
+        {
+            // Regex mail check (return true if valid mail)
+            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+        }
     },
     
     {
         type: 'list',
         message: "What is the employees role?",
-        choices: [engineerRole, internRole, managerRole, ],
+        choices: [managerRole, engineerRole, internRole],
         name: 'employee_role'
     },
     
