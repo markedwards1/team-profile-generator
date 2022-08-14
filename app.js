@@ -1,12 +1,29 @@
 //Inport inquirer
 const inquirer = require('inquirer');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const Manager = require('./lib/manager');
+const fs = require('fs');
+const path = require('path');
+const newHtml = require('./src/html-creator/html')
 
-
+const staff = [];
+const output = path.join(__dirname, 'dist', 'staff.html');
 
 //plan
 async function start(){
 //prompt questions
+//staff variable types
+
+
+const managerRole = "Manager";
+const engineerRole = "Engineer";
+const internRole = "Intern";
+
+
 const answers = await  inquirer.prompt([
+    
+    
     //Start, Managers details
   
     
@@ -30,7 +47,7 @@ const answers = await  inquirer.prompt([
     {
         type: 'list',
         message: "What is the employees role?",
-        choices: ['Engineer', 'Intern', 'Manager', ],
+        choices: [engineerRole, internRole, managerRole, ],
         name: 'employee_role'
     },
     
@@ -38,20 +55,20 @@ const answers = await  inquirer.prompt([
         type: 'input',
         message: "Manager's office number?",
         name: 'managers_office_number',
-        when: (answers) => answers.employee_role === 'Manager'
+        when: (answers) => answers.employee_role === managerRole
     },
     
     {
         type: 'input',
         name: 'engineer_github',
         message: "What is your GitHub username?",
-        when: (answers) => answers.employee_role === 'Engineer'
+        when: (answers) => answers.employee_role === engineerRole
     },
     {
         type: 'input',
         name: 'intern_school',
         message: "What the intern's school?",
-        when: (answers) => answers.employee_role === 'Intern'
+        when: (answers) => answers.employee_role === internRole
     },
     {
         type: 'confirm',
@@ -62,17 +79,38 @@ const answers = await  inquirer.prompt([
 ]);
 
 // store answers
+//Once we have the staff check for the role
+if(answers.employee_role === managerRole){
+    staff.push(new Manager(answers.employee_name, answers.employee_id, answers.employee_email ,answers.managers_office_number))
+}
+if(answers.employee_role === engineerRole){
+    staff.push(new Engineer(answers.employee_name, answers.employee_id, answers.employee_email ,answers.engineer_github))
+}
+if(answers.employee_role === internRole){
+    staff.push(new Intern(answers.employee_name, answers.employee_id, answers.employee_email ,answers.intern_school))
+}
+//Create a role based object
+//add to the staff array
+console.log(staff);
 
 // ask choice if the user wants to go again. 
     if(!answers.add_new_staff) {
         //generate HTML
-    }else{
+       const htmlFile = newHtml(staff);
+        
+        //use fs to create a new file
+        fs.writeFileSync(output, htmlFile, 'utf-8')
+
+    }
+    else{
        await start();
     }
 
-console.log(answers);
+
 
 }
+
+
 
 //run application
 start();
